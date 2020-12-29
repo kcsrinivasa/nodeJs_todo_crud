@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>TODO</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta Http-Equiv="Cache-Control" Content="no-cache">
+  <meta Http-Equiv="Pragma" Content="no-cache">
+  <meta Http-Equiv="Expires" Content="0"> 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+body{
+	background-image: linear-gradient(to bottom right, #00d8ff , #1613fd);
+    height: 100vh;
+}
+</style>
+</head>
+<body>
+<div class="row m-3">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 rounded p-3">
+	<% if(edit_todo_data!=''){ %>
+	<form action="/update" method="post">
+		<div class="input-group">
+			<div class="input-group-prepend"><span class="input-group-text p-0"><a href="/" class="btn"><i class="fa fa-lg fa-times-circle text-danger"></i></a></span></div>
+			<input type="hidden" name="row_id" value="<%= edit_todo_data.id %>">
+			<input type="text" name="name" class="form-control" placeholder="Enter TODO Name" value="<%= edit_todo_data.name %>" required>
+			<div class="input-group-append"><span class="input-group-text p-0"><button type="submit" class="btn" name="update"><i class="fa fa-lg fa-check-circle text-success"></i></button></span></div>
+		</div>
+	</form>
+
+	<% }else{ %>
+	<form action="" method="post">
+		<div class="input-group">
+			<input type="text" name="name" class="form-control" placeholder="Enter TODO Name" required>
+			<div class="input-group-append"><span class="input-group-text p-0"><button type="submit" class="btn" name="add"><i class="fa fa-lg fa-plus-circle text-primary"></i></button></span></div>
+		</div>
+	</form>
+	<% } %>
+
+	<% if(todo_list.length > 0){ %>
+	<table class="table">
+		<thead><th class="w-75"></th><th></th></thead>
+		<tbody class="rounded font-weight-bold" style="background-color: #f5fdfc78;">
+		<% for(var todo of todo_list ){ %>
+		<tr>
+			<td><%= todo.name %></td>
+			<td><a href="/delete/<%= todo.id %>"><button class="bg-light text-danger rounded"><i class="fa fa-lg fa-trash"></i></button></a>
+			
+			<a href="/edit/<%= todo.id %>"><button class="bg-light text-primary rounded"><i class="fa fa-lg fa-pencil"></i></button></a>
+			</td>
+		</tr>
+		<% } %>
+		</tbody>
+	</table>
+	<% }else{ %>
+	<h4 class="text-center my-3"> No Todo list found! </h4>
+	<% } %>
+			
+	</div>
+</div>
+
+
+
+</body>
+</html>
